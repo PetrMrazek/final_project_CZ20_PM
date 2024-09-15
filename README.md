@@ -8,3 +8,5 @@ druhá změna
 - pip install django==4.1.1
 - 
 ## Tipy
+
+## Úlohy
