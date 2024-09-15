@@ -8,3 +8,8 @@ class HomePageView(TemplateView):
 
     }
 
+class ProductsView(TemplateView):
+    template_name = 'products.html'
+    extra_context = {
+        'all_products': Product.objects.all()
+    }
