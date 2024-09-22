@@ -1,11 +1,18 @@
 from django.db import models
-from django.db.models import (
-    DO_NOTHING, CharField, DateField, DateTimeField, ForeignKey, IntegerField,
-    Model, TextField
-)
+from django.db.models import (CharField, DateField, DateTimeField, ForeignKey, IntegerField, TextField, ImageField,
+                              DecimalField)
 
 # Create your models here.
+class Categorie(models.Model):
+    name = models.CharField(max_length=255)
+    #parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
 
 class Product(models.Model):
-    name = CharField(max_length=128)
-    weight = IntegerField()
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    thumbnail = models.ImageField(upload_to='products/', null=True, blank=True)
+    category = models.ForeignKey(Categorie, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    allergens = models.CharField(max_length=50)
+
+

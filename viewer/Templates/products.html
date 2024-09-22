@@ -1,7 +1,19 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PAJ Bakery - Products</title>
 
-{% block content %}
+</head>
+<body>
+    <main>
+        <h1>Our Products</h1>
+    </main>
 
-{% for product
-
+{% for category in all_categories %}
+<br>{{ category.name }}
 {% endfor %}
+
+
+</body>
+</html>
