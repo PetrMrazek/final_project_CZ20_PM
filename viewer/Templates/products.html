@@ -3,17 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>PAJ Bakery - Products</title>
-
 </head>
 <body>
     <main>
         <h1>Our Products</h1>
     </main>
 
-{% for category in all_categories %}
-<br>{{ category.name }}
-{% endfor %}
+    {% for category, products in category_products.items %}
+        <h2>{{ category.name }}</h2>
 
+        <!-- Display products for this category -->
+        {% if products %}
+            <ul>
+                {% for product in products %}
+                    <li>
+                        <strong>{{ product.title }}</strong><br>
+                        Description: {{ product.description }}<br>
+                        Price: ${{ product.price }}<br>
+                        {% if product.thumbnail %}
+                            <img src="{{ product.thumbnail.url }}" alt="{{ product.title }}" style="width: 100px; height: auto;">
+                        {% endif %}
 
+                        <!-- Display allergens if they exist for the product -->
+                        {% if product.allergens.exists %}
+                            <br>Allergens:
+                            <ul>
+                                {% for allergen in product.allergens.all %}
+                                    <li>{{ allergen.name }} ({{ allergen.allergen_number }})</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No products available in this category.</p>
+        {% endif %}
+    {% endfor %}
 </body>
 </html>
