@@ -10,3 +10,6 @@ druhá změna
 ## Tipy
 
 ## Úlohy
+- [ ] úkol 1
+- [ ] úkol 2
+- [ ] úkol 3
