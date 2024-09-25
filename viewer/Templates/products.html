@@ -19,7 +19,7 @@
                     <li>
                         <strong>{{ product.title }}</strong><br>
                         Description: {{ product.description }}<br>
-                        Price: ${{ product.price }}<br>
+                        Price: {{ product.price }} czk <br>
                         {% if product.thumbnail %}
                             <img src="{{ product.thumbnail.url }}" alt="{{ product.title }}" style="width: 100px; height: auto;">
                         {% endif %}

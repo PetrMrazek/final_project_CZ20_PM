@@ -16,5 +16,5 @@ class Product(models.Model):
     description = models.TextField()
     thumbnail = models.ImageField(upload_to='products/', null=True, blank=True)
     category = models.ForeignKey(Categorie, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=0)
     allergens = models.ManyToManyField(Allergen)
