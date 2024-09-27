@@ -4,9 +4,11 @@
 
 <h1>Our Products</h1>
 
-{% for category, products in category_products.items %}
-        <h2>{{ category.name }}</h2>
+<a href="{% url 'add_product' %}">Add Product</a>
 
+    {% for category, products in category_products.items %}
+        <h2>{{ category.name }}</h2>
+        
         <!-- Display products for this category -->
         {% if products %}
             <ul>
@@ -14,11 +16,11 @@
                     <li>
                         <strong>{{ product.title }}</strong><br>
                         Description: {{ product.description }}<br>
-                        Price: {{ product.price }} czk <br>
+                        Price: {{ product.price }} czk<br>
                         {% if product.thumbnail %}
                             <img src="{{ product.thumbnail.url }}" alt="{{ product.title }}" style="width: 100px; height: auto;">
                         {% endif %}
-
+                        
                         <!-- Display allergens if they exist for the product -->
                         {% if product.allergens.exists %}
                             <br>Allergens:
@@ -27,6 +29,7 @@
                                     <li>{{ allergen.name }} ({{ allergen.allergen_number }})</li>
                                 {% endfor %}
                             </ul>
+
                         {% endif %}
                     </li>
                 {% endfor %}
