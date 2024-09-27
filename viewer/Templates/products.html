@@ -32,10 +32,11 @@
 
                         {% endif %}
                     </li>
+                    <a href={% url 'edit_product' product.pk %}>Edit</a>
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No products available in this category.</p>
+            <p>There aren't available products under this category.</p>
         {% endif %}
     {% endfor %}
 

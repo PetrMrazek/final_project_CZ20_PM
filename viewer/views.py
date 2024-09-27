@@ -1,9 +1,10 @@
 from django.shortcuts import render
 
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 
 from viewer.forms import ProductForm
 from viewer.models import Categorie, Product
+from django.urls import reverse_lazy
 
 class HomePageView(TemplateView):
     template_name = 'main.html'
@@ -27,3 +28,12 @@ class ProductCreateView(CreateView):
     template_name = 'form.html'
     model = Product
     form_class = ProductForm
+    success_url = reverse_lazy('products')
+
+class ProductUpdateView(UpdateView):
+    template_name = 'form.html'
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('products')
+
+
