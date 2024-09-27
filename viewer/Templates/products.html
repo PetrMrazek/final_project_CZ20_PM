@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>PAJ Bakery - Products</title>
-</head>
-<body>
-    <main>
-        <h1>Our Products</h1>
-    </main>
+{% extends 'base.html' %}
 
-    {% for category, products in category_products.items %}
+{% block content %}
+
+<h1>Our Products</h1>
+
+{% for category, products in category_products.items %}
         <h2>{{ category.name }}</h2>
 
         <!-- Display products for this category -->
@@ -40,5 +35,5 @@
             <p>No products available in this category.</p>
         {% endif %}
     {% endfor %}
-</body>
-</html>
+
+{% endblock %}
