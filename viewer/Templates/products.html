@@ -32,7 +32,8 @@
 
                         {% endif %}
                     </li>
-                    <a href={% url 'edit_product' product.pk %}>Edit</a>
+                    <a href={% url 'edit_product' product.pk %}>Edit</a><br>
+                    <a href={% url 'delete_product' product.pk %}>Delete</a>
                 {% endfor %}
             </ul>
         {% else %}

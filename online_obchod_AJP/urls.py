@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView
+from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView, ProductDeleteView
 from viewer.models import Categorie, Product, Allergen
 
 admin.site.register(Categorie)
@@ -28,6 +28,7 @@ urlpatterns = [
     path('', HomePageView.as_view(), name='main'),
     path('products', ProductsView.as_view(), name='products'),
     path('products/add/', ProductCreateView.as_view(), name='add_product'),
-    path('products/edit/<pk>/', ProductUpdateView.as_view(), name='edit_product')
+    path('products/edit/<pk>/', ProductUpdateView.as_view(), name='edit_product'),
+    path('products/delete/<pk>/', ProductDeleteView.as_view(), name='delete_product'),
 ]
 
