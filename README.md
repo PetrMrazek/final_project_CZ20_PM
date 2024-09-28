@@ -13,7 +13,7 @@ An application, that allows to add products to the store through the administrat
 - [x] Create basic templates views 
 
 ### Phase 2: Product Management
-- [ ] Implement create, update, delete form for Products
+- [X] Implement create, update, delete form for Products management
 - [ ] Add product list view for users
 - [ ] Add search and pagination for product list
 
