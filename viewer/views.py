@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
-
+from django.contrib.auth.forms import UserCreationForm
 from viewer.forms import ProductForm
 from viewer.models import Categorie, Product
 from django.urls import reverse_lazy
@@ -44,5 +44,9 @@ class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('products')
     permission_required = 'viewer.delete_product'
 
+class SingUpView (CreateView):
+    template_name = 'form.html'
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
 class UserView(TemplateView):
     template_name = 'user.html'
