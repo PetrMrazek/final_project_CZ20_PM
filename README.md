@@ -13,20 +13,22 @@ An application, that allows to add products to the store through the administrat
 - [x] Create basic templates views 
 
 ### Phase 2: Product Management
-- [X] Implement create, update, delete form for Products management
-- [ ] Add product list view for users
-- [ ] Add search and pagination for product list
+- [X] Implement Add product 
+- [X] Implement Update/change product 
+- [X] Implement Delete product 
 
 ### Phase 3: User Management
 
 - [X] Implement user login and logout
-- [X] Implement user register
-- [X] Add user profile management (edit user data)
-- [ ] Add shopping cart functionality
-- [ ] Allow users to place orders
+- [X] Implement user registration
+- [X] Add user profile view 
+- [X] Set permissions on Views 
 
 ### Phase 4: Order Management
+- [ ] Add shopping cart functionality
 - [ ] Implement order creation 
+- [ ] Add product list view for users
+- [ ] Add search and pagination for product list
 
 ### Phase 5: Additional Features
 - [ ] Add weather widget based on user city
