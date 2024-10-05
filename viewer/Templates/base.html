@@ -10,7 +10,7 @@
     <li class="nav-item"><a class="nav-link" href="{% url 'main' %}">PAJ</a></li>
     <li class="nav-item"><a class="nav-link" href="{% url 'products' %}">Our Products</a></li>
         {% if user.is_authenticated %}
-    <li class="nav-item"><a class="nav-link" href="{% url 'userpage' %}">Uživatel: {{user.username}}</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'userpage' %}">User: {{user.username}}</a></li>
     <li class="nav-item "><form action="{% url 'logout' %}" method="POST">
       {% csrf_token %}<input type="submit" value="Logout - {{user.username}}" class="btn btn-outline-secondary"></form>
     </li>
