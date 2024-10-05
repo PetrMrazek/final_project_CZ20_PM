@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 
 from viewer.forms import ProductForm
@@ -24,20 +24,25 @@ class ProductsView(TemplateView):
         context['category_products'] = category_products
         return context
 
-class ProductCreateView(CreateView):
+class ProductCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'form.html'
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('products')
+    permission_required = ('viewer.add_product',)
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'form.html'
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('products')
+    permission_required = 'viewer.change_product'
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete_product.html'
     model = Product
     success_url = reverse_lazy('products')
+    permission_required = 'viewer.delete_product'
 
+class UserView(TemplateView):
+    template_name = 'user.html'
