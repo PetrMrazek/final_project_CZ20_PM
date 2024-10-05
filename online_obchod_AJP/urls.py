@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView, ProductDeleteView
 from viewer.models import Categorie, Product, Allergen
+from django.contrib.auth.views import LoginView, LogoutView
 
 admin.site.register(Categorie)
 admin.site.register(Product)
@@ -30,5 +31,8 @@ urlpatterns = [
     path('products/add/', ProductCreateView.as_view(), name='add_product'),
     path('products/edit/<pk>/', ProductUpdateView.as_view(), name='edit_product'),
     path('products/delete/<pk>/', ProductDeleteView.as_view(), name='delete_product'),
+
+    path('user/logout', LogoutView.as_view(), name='logout'),
+
 ]
 
