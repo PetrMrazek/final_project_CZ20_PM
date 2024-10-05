@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView, ProductDeleteView, UserView
+from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView, ProductDeleteView, UserView, \
+    SingUpView
 from viewer.models import Categorie, Product, Allergen
 from django.contrib.auth.views import LoginView, LogoutView
 
@@ -33,6 +34,7 @@ urlpatterns = [
     path('products/delete/<pk>/', ProductDeleteView.as_view(), name='delete_product'),
 
     path('userpage/', UserView.as_view(), name='userpage'),
+    path('accounts/register/', SingUpView.as_view(), name='register'),
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/logout', LogoutView.as_view(), name='logout'),
 
