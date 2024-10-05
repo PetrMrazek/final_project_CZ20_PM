@@ -20,8 +20,8 @@ An application, that allows to add products to the store through the administrat
 ### Phase 3: User Management
 
 - [X] Implement user login and logout
-- [ ] Implement user register
-- [ ] Add user profile management (edit user data)
+- [X] Implement user register
+- [X] Add user profile management (edit user data)
 - [ ] Add shopping cart functionality
 - [ ] Allow users to place orders
 
