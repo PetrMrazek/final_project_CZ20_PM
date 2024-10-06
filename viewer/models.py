@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.db.models import (CharField, DateField, DateTimeField, ForeignKey, IntegerField, TextField, ImageField,
                               DecimalField, EmailField)
@@ -23,13 +25,22 @@ class Product(models.Model):
 
 # Customers
 class Customer(models.Model):
+    user_login = models.EmailField(max_length=50)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=10)
-    email = models.EmailField(max_length=50)
     password = models.CharField(max_length=50)
 
 class OrderLine(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default = 1)
     price = models.IntegerField()
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    delivery_address = models.CharField(max_length=100)
+    billing_address = models.CharField(max_length=100)
+    date_of_submission = models.DateField(default=datetime.datetime.today)
+    order_lines = models.ForeignKey(OrderLine, on_delete=models.CASCADE)
+    status
+
