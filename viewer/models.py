@@ -1,5 +1,5 @@
-import datetime
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 from django.db import models
 from django.db.models import (CharField, DateField, DateTimeField, ForeignKey, IntegerField, TextField, ImageField,
                               DecimalField, EmailField)
@@ -23,13 +23,6 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=0)
     allergens = models.ManyToManyField(Allergen)
 
-# Customers
-class Customer(models.Model):
-    user_login = models.EmailField(max_length=50)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=10)
-    password = models.CharField(max_length=50)
 
 # Orders
 class OrderLine(models.Model):
@@ -38,11 +31,10 @@ class OrderLine(models.Model):
     price = models.IntegerField()
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    delivery_address = models.CharField(max_length=100)
-    billing_address = models.CharField(max_length=100)
-    date_of_submission = models.DateField(default=datetime.datetime.today)
-    order_lines = models.ForeignKey(OrderLine, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    #delivery_address = models.CharField(max_length=100)
+    #billing_address = models.CharField(max_length=100)
+    order_lines = models.ManyToManyField(OrderLine)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.BooleanField(default=False)
+    #status = models.BooleanField(default=False)
 
