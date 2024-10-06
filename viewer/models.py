@@ -3,14 +3,16 @@ from django.db.models import (CharField, DateField, DateTimeField, ForeignKey, I
                               DecimalField, EmailField)
 
 # Create your models here.
+# Categories od Products
 class Categorie(models.Model):
     name = models.CharField(max_length=255)
 
-
+# Allergens of Products
 class Allergen(models.Model):
     name = models.CharField(max_length=255)
     allergen_number = models.IntegerField()
 
+# Products
 class Product(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -19,9 +21,10 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=0)
     allergens = models.ManyToManyField(Allergen)
 
+# Customers
 class Customer(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=10)
-    e-mail = models.EmailField(max_length=50)
+    email = models.EmailField(max_length=50)
     password = models.CharField(max_length=50)
