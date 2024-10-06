@@ -28,3 +28,8 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=10)
     email = models.EmailField(max_length=50)
     password = models.CharField(max_length=50)
+
+class OrderLine(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default = 1)
+    price = models.IntegerField()
