@@ -31,9 +31,10 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=10)
     password = models.CharField(max_length=50)
 
+# Orders
 class OrderLine(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default = 1)
+    quantity = models.IntegerField(default=1)
     price = models.IntegerField()
 
 class Order(models.Model):
@@ -42,5 +43,6 @@ class Order(models.Model):
     billing_address = models.CharField(max_length=100)
     date_of_submission = models.DateField(default=datetime.datetime.today)
     order_lines = models.ForeignKey(OrderLine, on_delete=models.CASCADE)
-    status
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.BooleanField(default=False)
 
