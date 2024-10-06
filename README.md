@@ -16,7 +16,7 @@ An application, that allows to add products to the store through the administrat
 - [X] Implement Add product 
 - [X] Implement Update/change product 
 - [X] Implement Delete product
-- [ ] Add product list view for users
+- [ ] Add product list view for users(customers)
 - [ ] Add search and pagination for product list
 
 ### Phase 3: User Management
