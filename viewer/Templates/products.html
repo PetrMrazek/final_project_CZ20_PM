@@ -32,6 +32,7 @@
 
                         {% endif %}
                     </li>
+                    <!-- Display edit and delete options for product management -->
                     <a href={% url 'edit_product' product.pk %}>Edit</a><br>
                     <a href={% url 'delete_product' product.pk %}>Delete</a>
                 {% endfor %}

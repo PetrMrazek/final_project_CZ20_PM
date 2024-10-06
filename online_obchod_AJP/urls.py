@@ -20,6 +20,8 @@ from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductU
     SingUpView
 from viewer.models import Categorie, Product, Allergen
 from django.contrib.auth.views import LoginView, LogoutView
+from . import settings
+from django.conf.urls.static import static
 
 admin.site.register(Categorie)
 admin.site.register(Product)
@@ -38,5 +40,5 @@ urlpatterns = [
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('accounts/logout', LogoutView.as_view(), name='logout'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
