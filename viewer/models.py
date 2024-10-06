@@ -30,11 +30,19 @@ class OrderLine(models.Model):
     quantity = models.IntegerField(default=1)
     price = models.IntegerField()
 
+    #def get_total_price(self):
+    #    return self.price * self.quantity
+
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     #delivery_address = models.CharField(max_length=100)
     #billing_address = models.CharField(max_length=100)
     order_lines = models.ManyToManyField(OrderLine)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    total_cost = models.DecimalField(max_digits=10, decimal_places=2)
     #status = models.BooleanField(default=False)
+
+    #def calculate_total_cost(self):
+        #self.total_cost = sum(line.get_total_price() for line in self.order_lines.all())
+        #self.save()
+
 

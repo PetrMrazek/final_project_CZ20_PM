@@ -57,3 +57,5 @@ class UserView(TemplateView):
     template_name = 'user.html'
 
 # Order management views
+class CartSummaryView(TemplateView):
+    template_name = 'cart.html'

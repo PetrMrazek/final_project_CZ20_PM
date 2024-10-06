@@ -26,7 +26,7 @@ An application, that allows to add products to the store through the administrat
 - [X] Set permissions on Views 
 
 ### Phase 4: Order Management
-- [ ] Create models: customer, order line, order
+- [ ] Create models:order line, order
 - [ ] Create Views for Cart: Add product to cart, Update,remove, view, place order
 - [ ] Create Template: cart.html
 
