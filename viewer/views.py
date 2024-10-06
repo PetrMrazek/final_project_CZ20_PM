@@ -6,10 +6,13 @@ from viewer.forms import ProductForm
 from viewer.models import Categorie, Product
 from django.urls import reverse_lazy
 
+# Homepage set up
 class HomePageView(TemplateView):
     template_name = 'main.html'
     extra_context = {
     }
+
+# Product list under each assigned category
 class ProductsView(TemplateView):
     template_name = 'products.html'
 
@@ -24,6 +27,7 @@ class ProductsView(TemplateView):
         context['category_products'] = category_products
         return context
 
+# Product Management for admin users
 class ProductCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'form.html'
     model = Product
@@ -44,9 +48,12 @@ class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('products')
     permission_required = 'viewer.delete_product'
 
+# User management views
 class SingUpView (CreateView):
     template_name = 'form.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
 class UserView(TemplateView):
     template_name = 'user.html'
+
+# Order management views
