@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from viewer.forms import ProductForm
-from viewer.models import Categorie, Product
+from viewer.models import Categorie, Product, Allergen
 from django.urls import reverse_lazy
 
 # Homepage set up
@@ -33,6 +33,7 @@ class ProductDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data( **kwargs)
         context["product_detail"] = Product.objects.get(pk=self.kwargs['pk'])
+        context["product_allergens"] = Allergen.objects.get(pk=self.kwargs['pk'])
         return context
 
 # Product Management for admin users
