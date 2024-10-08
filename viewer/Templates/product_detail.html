@@ -14,12 +14,8 @@
       <div class="card-body">
         <h5 class="card-title">Our {{ product_detail.title }}</h5><br>
         <p class="card-text">{{ product_detail.description }}</p>
-        {% if product_detail.allergens.exists %}
-            <br><h6 class="card-title">Allergens: </h6>
-                {% for allergen in product_detail.allergens.all %}
-                  <li class="card-text">{{ product_allergens.name }} ({{product_allergens.allergen_number}})</li>
-                {% endfor %}
-        {% endif %}
+        <br><h6 class="card-title">Allergens: </h6>
+        <p class="card-text">{{ product_detail.allergens }}</p>
       </div>
     </div>
   </div>
