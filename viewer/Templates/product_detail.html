@@ -15,7 +15,8 @@
         <h5 class="card-title">Our {{ product_detail.title }}</h5><br>
         <p class="card-text">{{ product_detail.description }}</p>
         <br><h6 class="card-title">Allergens: </h6>
-        <p class="card-text">{{ product_detail.allergens }}</p>
+        <li class="card-text">{{ product_allergens.name }} ({{product_allergens.allergen_number}})</li>
+
       </div>
     </div>
   </div>
