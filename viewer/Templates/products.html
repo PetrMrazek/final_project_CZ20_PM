@@ -32,7 +32,7 @@
                                     <div class="card h-100">
                                         <!-- Product image-->
                                         {% if product.thumbnail %}
-                                        <img class="card-img-top" src="{{ product.thumbnail.url }}" alt="..." />
+                                        <img class="card-img-top" src="{{ product.thumbnail.url }}" alt="{{ product.tittle }}" style="width: auto; height: 220px;"/>
                                         {% endif %}
                                         <!-- Product details-->
                                         <div class="card-body p-4">
