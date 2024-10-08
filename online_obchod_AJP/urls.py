@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView, ProductDeleteView, UserView, \
-    SingUpView, CartSummaryView
+    SingUpView, CartSummaryView, ProductDetailView
 from viewer.models import Categorie, Product, Allergen, OrderLine, Order
 from django.contrib.auth.views import LoginView, LogoutView
 from . import settings
@@ -33,6 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view(), name='main'),
     path('products', ProductsView.as_view(), name='products'),
+    path('products/<pk>', ProductDetailView.as_view(), name='product_detail'),
     path('products/add/', ProductCreateView.as_view(), name='add_product'),
     path('products/edit/<pk>/', ProductUpdateView.as_view(), name='edit_product'),
     path('products/delete/<pk>/', ProductDeleteView.as_view(), name='delete_product'),

@@ -12,7 +12,7 @@ class HomePageView(TemplateView):
     extra_context = {
     }
 
-# Product list under each assigned category
+# Product list filter by category
 class ProductsView(TemplateView):
     template_name = 'products.html'
 
@@ -25,6 +25,14 @@ class ProductsView(TemplateView):
             category_products[category] = Product.objects.filter(category=category)
 
         context['category_products'] = category_products
+        return context
+
+# Product Details
+class ProductDetailView(TemplateView):
+    template_name = 'product_detail.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data( **kwargs)
+        context["product_detail"] = Product.objects.get(pk=self.kwargs['pk'])
         return context
 
 # Product Management for admin users
@@ -47,6 +55,8 @@ class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('products')
     permission_required = 'viewer.delete_product'
+
+
 
 # User management views
 class SingUpView (CreateView):

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container" xmlns="http://www.w3.org/1999/html">
+<br/>
+
+
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src=" {{ product_detail.thumbnail.url }} " class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Our {{ product_detail.title }}</h5><br>
+        <p class="card-text">{{ product_detail.description }}</p>
+        <br><h6 class="card-title">Allergens: </h6>
+        <p class="card-text">{{ product_detail.allergens }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

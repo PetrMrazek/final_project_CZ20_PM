@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{user.username}}</h1>
 
+<!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">User Account</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Check your account information</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+        	<div class="row">
+        		<center>
+        			<div class="col-8">
+
+                        <br/><br/>
+
+                        <h4>General information</h4>
 <table>
     <tr>
         <td>username</td><td>{{user.username}}</td></tr><tr>
@@ -18,15 +35,28 @@
     </tr>
 </table>
 
-<h2>user_permissions</h2>
+<h4>User rights</h4>
 {% for perm in user.user_permissions.all %}
 {{perm.name}} -- {{perm.codename}}<br>
 {% endfor %}
 
-<h2>Groups</h2>
+<h4>User assigned groups</h4>
 
 {% for group in user.groups.all %}
 <h3>{{group}}</h3> {% for perm in group.permissions.all %} {{perm.codename}}{%endfor%}<br>
 {% endfor %}
+
+
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+        			</div>
+        		</center>
+        	</div>
+        </div>
 
 {% endblock %}
