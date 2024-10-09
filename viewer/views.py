@@ -49,7 +49,7 @@ class ProductUpdateView(PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('products')
-    permission_required = 'viewer.change_product'
+    permission_required = ('viewer.change_product')
 
 class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete_product.html'
@@ -69,4 +69,10 @@ class UserView(TemplateView):
 
 # Order management views
 class CartSummaryView(TemplateView):
-    template_name = 'cart.html'
+    template_name = 'cart_summary.html'
+
+#class CartAddView(CreateView):
+
+#class CartDeleteView(DeleteView):
+
+#class CartUpdateView(UpdateView):
