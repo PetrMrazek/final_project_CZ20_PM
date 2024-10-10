@@ -4,7 +4,6 @@
 <div class="container" xmlns="http://www.w3.org/1999/html">
 <br/>
 
-
 <div class="card mb-3">
   <div class="row g-0">
     <div class="col-md-4">
@@ -16,9 +15,46 @@
         <p class="card-text">{{ product_detail.description }}</p>
         <br><h6 class="card-title">Allergens: </h6>
         <p class="card-text">{{ product_detail.allergens }}</p>
+        <br><h6 class="card-title">Price: </h6>{{ product_detail.price }} czk
+        <br/><br/>
+        <button type="button" value= "{{ product_detail.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
       </div>
     </div>
   </div>
 </div>
+
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<script>
+// Check if button pressed
+$(document).on('click', '#add-cart', function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart_add' %}',
+        data: {
+          product_id: $('#add-cart').val(),
+          product_qty: $('#qty-cart option:selected').text(),
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          action: 'post'
+        },
+
+        success: function(json){
+          //console.log(json)
+          document.getElementById("cart_quantity").textContent = json.qty
+          location.reload();
+        },
+
+        error: function(xhr, errmsg, err){
+
+        }
+
+
+    });
+
+})
+
+</script>
+
 
 {% endblock %}

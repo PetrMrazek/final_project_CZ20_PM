@@ -1,10 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from viewer.forms import ProductForm
 from viewer.models import Categorie, Product, Allergen
+from viewer.cart import Cart
 from django.urls import reverse_lazy
+from django.http import JsonResponse
+from django.contrib import messages
+
 
 # Homepage set up
 class HomePageView(TemplateView):
@@ -71,7 +75,29 @@ class UserView(TemplateView):
 class CartSummaryView(TemplateView):
     template_name = 'cart_summary.html'
 
-#class CartAddView(CreateView):
+def cart_add(request):
+    cart = Cart(request)
+    # test for POST
+    if request.POST.get('action') == 'post':
+        # Get product
+        product_id = int(request.POST.get('product_id'))
+
+        # lookup for product in DB
+        product = get_object_or_404(Product, id=product_id)
+
+        # Save to session
+        cart.add(product=product)
+
+        # Get Cart Quantity
+        cart_quantity = cart.__len__()
+
+        # Return response
+        response = JsonResponse({'qty': cart_quantity})
+        return response
+
+
+
+
 
 #class CartDeleteView(DeleteView):
 
