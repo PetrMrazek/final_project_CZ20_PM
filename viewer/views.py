@@ -72,8 +72,14 @@ class UserView(TemplateView):
     template_name = 'user.html'
 
 # Order management views
-class CartSummaryView(TemplateView):
-    template_name = 'cart_summary.html'
+def cart_summary(request):
+	# Get the cart
+	cart = Cart(request)
+	cart_products = cart.get_prods
+	#quantities = cart.get_quants
+	#totals = cart.cart_total()
+	return render(request, "cart_summary.html", {"cart_products":cart_products})
+
 
 def cart_add(request):
     cart = Cart(request)
