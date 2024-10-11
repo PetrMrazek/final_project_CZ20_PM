@@ -105,6 +105,3 @@ def cart_add(request):
 
 
 
-#class CartDeleteView(DeleteView):
-
-#class CartUpdateView(UpdateView):

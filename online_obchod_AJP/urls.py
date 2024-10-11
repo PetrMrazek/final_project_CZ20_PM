@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView, ProductDeleteView, UserView, \
     SingUpView, ProductDetailView, cart_summary, cart_add
-from viewer.models import Categorie, Product, Allergen, OrderLine, Order
+from viewer.models import Categorie, Product, Allergen, Order
 from django.contrib.auth.views import LoginView, LogoutView
 from . import settings
 from django.conf.urls.static import static
@@ -26,7 +26,6 @@ from django.conf.urls.static import static
 admin.site.register(Categorie)
 admin.site.register(Product)
 admin.site.register(Allergen)
-admin.site.register(OrderLine)
 admin.site.register(Order)
 
 urlpatterns = [
