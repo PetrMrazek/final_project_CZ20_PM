@@ -13,8 +13,15 @@
       <div class="card-body">
         <h5 class="card-title">Our {{ product_detail.title }}</h5><br>
         <p class="card-text">{{ product_detail.description }}</p>
-        <br><h6 class="card-title">Allergens: </h6>
-        <p class="card-text">{{ product_detail.allergens }}</p>
+        <h6 class="card-title">Allergens: </h6>
+        <p class="card-text">
+            {% for allergen in product_allergens %}
+                {{ allergen.name }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+                No allergens.
+            {% endfor %}
+        </p>
+
         <br><h6 class="card-title">Price: </h6>{{ product_detail.price }} czk
         <br/><br/>
         <button type="button" value= "{{ product_detail.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
