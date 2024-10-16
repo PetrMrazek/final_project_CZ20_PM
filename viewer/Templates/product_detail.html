@@ -40,26 +40,22 @@ $(document).on('click', '#add-cart', function(e){
         type: 'POST',
         url: '{% url 'cart_add' %}',
         data: {
-          product_id: $('#add-cart').val(),
-          product_qty: $('#qty-cart option:selected').text(),
+          product_id: $(this).val(),  // Corrected to get the button value which contains the product ID
+          product_qty: 1, // Default quantity for now, you can modify this
           csrfmiddlewaretoken: '{{ csrf_token }}',
           action: 'post'
         },
 
         success: function(json){
-          //console.log(json)
-          document.getElementById("cart_quantity").textContent = json.qty
+          document.getElementById("cart_quantity").textContent = json.qty;
           location.reload();
         },
 
         error: function(xhr, errmsg, err){
-
+            console.log(xhr.responseText);
         }
-
-
     });
-
-})
+});
 
 </script>
 
