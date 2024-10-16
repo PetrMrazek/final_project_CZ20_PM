@@ -18,15 +18,9 @@ from django.contrib import admin
 from django.urls import path
 from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView, ProductDeleteView, UserView, \
     SingUpView, ProductDetailView, cart_summary, cart_add
-from viewer.models import Categorie, Product, Allergen, Order
 from django.contrib.auth.views import LoginView, LogoutView
 from . import settings
 from django.conf.urls.static import static
-
-admin.site.register(Categorie)
-admin.site.register(Product)
-admin.site.register(Allergen)
-admin.site.register(Order)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,7 +33,7 @@ urlpatterns = [
 
     path('cart', cart_summary, name='cart_summary'),
     path('cart/add/', cart_add, name='cart_add'),
-    #path('cart/delete/', CartDeleteView.as_view(), name='cart_delete'),
+    #path('cart/remove/', cart_remove, name='cart_remove'),
     #path('cart/update/', CartUpdateView.as_view(), name='cart_update'),
 
     path('userpage/', UserView.as_view(), name='userpage'),
