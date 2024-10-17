@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView, ProductDeleteView, UserView, \
-    SingUpView, ProductDetailView, AddToCartView, CartSummaryView, UpdateCartView, RemoveFromCartView
+    SingUpView, ProductDetailView, AddToCartView, CartSummaryView, UpdateCartView, RemoveFromCartView, PlaceOrderView, OrderSummaryView
 from django.contrib.auth.views import LoginView, LogoutView
 from . import settings
 from django.conf.urls.static import static
@@ -25,6 +25,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view(), name='main'),
+
     path('products', ProductsView.as_view(), name='products'),
     path('products/<pk>', ProductDetailView.as_view(), name='product_detail'),
     path('products/add/', ProductCreateView.as_view(), name='add_product'),
@@ -35,6 +36,10 @@ urlpatterns = [
     path('cart/', CartSummaryView.as_view(), name='cart_summary'),
     path('cart/update/', UpdateCartView.as_view(), name='cart_update'),
     path('cart/remove/<int:product_id>/', RemoveFromCartView.as_view(), name='cart_remove'),
+
+    path('order/place/', PlaceOrderView.as_view(), name='place_order'),
+    path('order/summary/<int:pk>/', OrderSummaryView.as_view(), name='order_summary'),
+
 
     path('userpage/', UserView.as_view(), name='userpage'),
     path('accounts/register/', SingUpView.as_view(), name='register'),

@@ -47,10 +47,16 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <a href="{% url 'place_order' %}" class="btn btn-primary">Checkout</a>
             <a href="{% url 'products' %}" class="btn btn-secondary">Continue Shopping</a>
+
         {% else %}
             <p>Your cart is empty.</p>
             <a href="{% url 'products' %}" class="btn btn-primary">Shop Now</a>
         {% endif %}
     </div>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/>
+
 {% endblock %}

@@ -2,10 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, FormView, View
 from django.contrib.auth.forms import UserCreationForm
-from viewer.forms import ProductForm, AddToCartForm, UpdateCartForm
-from viewer.models import Categorie, Product, Allergen
+from viewer.forms import ProductForm, AddToCartForm, OrderForm
+from viewer.models import Categorie, Product, Allergen, Order
 from django.urls import reverse_lazy
-
 
 
 # Homepage set up
@@ -71,7 +70,6 @@ class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('products')
     permission_required = 'viewer.delete_product'
-
 
 
 # User management views
@@ -176,6 +174,44 @@ class RemoveFromCartView(View):
 
         return redirect('cart_summary')
 
+# Order Management Views
+
+# View for placing an order
+class PlaceOrderView(LoginRequiredMixin, FormView):
+    template_name = 'place_order.html'
+    form_class = OrderForm
+
+    def form_valid(self, form):
+        # Get user cart
+        cart = self.request.session.get('cart', {})
+        products = Product.objects.filter(id__in=cart.keys())
+
+        # Calculate total price
+        total_price = sum(product.price * cart[str(product.id)] for product in products)
+
+        # Create the order
+        order = Order.objects.create(
+            user=self.request.user,
+            items=cart,
+            total_price=total_price,
+            status='Pending',
+        )
+
+        # Clear the cart
+        self.request.session['cart'] = {}
+        self.request.session.modified = True
+
+        return redirect('order_summary', pk=order.pk)
+
+# View for reviewing an order
+class OrderSummaryView(LoginRequiredMixin, TemplateView):
+    template_name = 'order_summary.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order = get_object_or_404(Order, pk=self.kwargs['pk'], user=self.request.user)
+        context['order'] = order
+        return context
 
 
 
