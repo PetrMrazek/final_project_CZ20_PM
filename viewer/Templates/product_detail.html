@@ -1,63 +1,28 @@
 {% extends 'base.html' %}
+
 {% block content %}
+    <div class="container">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ product_detail.thumbnail.url }}" class="img-fluid rounded-start" alt="Product Image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product_detail.title }}</h5>
+                        <p class="card-text">{{ product_detail.description }}</p>
+                        <p class="card-text">Price: {{ product_detail.price }} CZK</p>
 
-<div class="container" xmlns="http://www.w3.org/1999/html">
-<br/>
-
-<div class="card mb-3">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src=" {{ product_detail.thumbnail.url }} " class="img-fluid rounded-start" alt="...">
+                        <form method="post" action="{% url 'cart_add' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" value="{{ product_detail.id }}">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" value="1" min="1">
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">Our {{ product_detail.title }}</h5><br>
-        <p class="card-text">{{ product_detail.description }}</p>
-        <h6 class="card-title">Allergens: </h6>
-        <p class="card-text">
-            {% for allergen in product_allergens %}
-                {{ allergen.name }}{% if not forloop.last %}, {% endif %}
-            {% empty %}
-                No allergens.
-            {% endfor %}
-        </p>
-
-        <br><h6 class="card-title">Price: </h6>{{ product_detail.price }} czk
-        <br/><br/>
-        <button type="button" value= "{{ product_detail.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
-<script>
-// Check if button pressed
-$(document).on('click', '#add-cart', function(e){
-    e.preventDefault();
-    $.ajax({
-        type: 'POST',
-        url: '{% url 'cart_add' %}',
-        data: {
-          product_id: $(this).val(),  // Corrected to get the button value which contains the product ID
-          product_qty: 1, // Default quantity for now, you can modify this
-          csrfmiddlewaretoken: '{{ csrf_token }}',
-          action: 'post'
-        },
-
-        success: function(json){
-          document.getElementById("cart_quantity").textContent = json.qty;
-          location.reload();
-        },
-
-        error: function(xhr, errmsg, err){
-            console.log(xhr.responseText);
-        }
-    });
-});
-
-</script>
-
-
 {% endblock %}

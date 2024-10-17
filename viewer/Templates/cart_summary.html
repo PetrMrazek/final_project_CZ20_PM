@@ -1,40 +1,57 @@
+<!-- cart_summary.html -->
 {% extends 'base.html' %}
 
 {% block content %}
-
-<!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shopping Cart</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">View your added products here</p>
-                </div>
+    <!-- Header -->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Shopping Cart</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Find below the items you have chosen</p>
             </div>
-        </header>
-
-        <div class="container">
-<!--            {% for product in cart_products %}-->
-<!--                {{product}}<br/>-->
-<!--            {% endfor %}-->
-
         </div>
-
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-
-
-
+    </header>
+    <br/>
+    <div class="container">
+        {% if cart_items %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                        <tr>
+                            <td>{{ item.product.title }}</td>
+                            <td>
+                                <form method="post" action="{% url 'cart_update' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="0">
+                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                </form>
+                            </td>
+                            <td>{{ item.product.price }} CZK</td>
+                            <td>{{ item.total_price }} CZK</td>
+                            <td>
+                                <form method="post" action="{% url 'cart_remove' item.product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{% url 'products' %}" class="btn btn-secondary">Continue Shopping</a>
+        {% else %}
+            <p>Your cart is empty.</p>
+            <a href="{% url 'products' %}" class="btn btn-primary">Shop Now</a>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -1,13 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, FormView, View
 from django.contrib.auth.forms import UserCreationForm
-from viewer.forms import ProductForm
+from viewer.forms import ProductForm, AddToCartForm, UpdateCartForm
 from viewer.models import Categorie, Product, Allergen
-from viewer.cart import Cart
 from django.urls import reverse_lazy
-from django.http import JsonResponse
-from django.contrib import messages
+
 
 
 # Homepage set up
@@ -73,44 +71,98 @@ class UserView(TemplateView):
     template_name = 'user.html'
 
 # Order management views
-def cart_summary(request):
-    # Get the cart
-    cart = Cart(request)
-    cart_products = cart.get_prods()  # Call the method with parentheses to get products
+# View for adding items to the cart
+class AddToCartView(FormView):
+    form_class = AddToCartForm
 
-    return render(request, "cart_summary.html", {"cart_products": cart_products})
+    def form_valid(self, form):
+        product_id = form.cleaned_data['product_id']
+        quantity = form.cleaned_data['quantity']
 
+        # Get or create the cart from the session
+        cart = self.request.session.get('cart', {})
+        if product_id in cart:
+            cart[product_id] += quantity
+        else:
+            cart[product_id] = quantity
 
+        # Save updated cart back to session
+        self.request.session['cart'] = cart
+        self.request.session.modified = True
 
-def cart_add(request):
-    # Get the cart
-    cart = Cart(request)
-    # Test for POST
-    if request.POST.get('action') == 'post':
-        # Get data from request
-        product_id = int(request.POST.get('product_id'))
-        product_qty = int(request.POST.get('product_qty'))
-
-        # Lookup product in DB
-        product = get_object_or_404(Product, id=product_id)
-
-        # Save to session
-        cart.add(product=product, quantity=product_qty)
-
-        # Debugging: Check session data
-        print(request.session['session_key'])
-
-        # Get Cart Quantity
-        cart_quantity = cart.__len__()
-
-        # Return response
-        response = JsonResponse({'qty': cart_quantity})
-        messages.success(request, "Product Added To Cart...")
-        return response
-
-    #def cart_remove(request):
+        return redirect('cart_summary')
 
 
+# View for displaying the cart summary
+class CartSummaryView(TemplateView):
+    template_name = 'cart_summary.html'
+
+    def get_context_data(self, **kwargs):
+        cart = self.request.session.get('cart', {})
+        products = Product.objects.filter(id__in=cart.keys())
+
+        # Create cart items with product, quantity, and total price
+        cart_items = []
+        for product in products:
+            quantity = cart.get(str(product.id), 0)  # Ensure product.id is cast to string to match cart keys
+            total_price = product.price * quantity
+            cart_items.append({
+                'product': product,
+                'quantity': quantity,
+                'total_price': total_price
+            })
+
+        context = super().get_context_data(**kwargs)
+        context['cart_items'] = cart_items
+        return context
+
+
+# View for updating cart items
+class UpdateCartView(View):
+    def post(self, request, *args, **kwargs):
+        product_id = request.POST.get('product_id')
+        quantity = request.POST.get('quantity')
+
+        # Validate product_id and quantity
+        try:
+            product_id = int(product_id)
+            quantity = int(quantity)
+        except (ValueError, TypeError):
+            return redirect('cart_summary')
+
+        # Get the cart from the session
+        cart = request.session.get('cart', {})
+
+        if str(product_id) in cart:
+            if quantity > 0:
+                cart[str(product_id)] = quantity
+            else:
+                # If quantity is 0, remove the item from the cart
+                del cart[str(product_id)]
+
+        # Save updated cart back to session
+        request.session['cart'] = cart
+        request.session.modified = True
+
+        return redirect('cart_summary')
+
+# View for removing an item from the cart
+class RemoveFromCartView(View):
+    def post(self, request, *args, **kwargs):
+        product_id = kwargs.get('product_id')
+
+        # Get the cart from the session
+        cart = self.request.session.get('cart', {})
+
+        # Remove the product if it exists in the cart
+        if str(product_id) in cart:
+            del cart[str(product_id)]
+
+        # Save updated cart back to session
+        self.request.session['cart'] = cart
+        self.request.session.modified = True
+
+        return redirect('cart_summary')
 
 
 

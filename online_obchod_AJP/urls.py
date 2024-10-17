@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView, ProductDeleteView, UserView, \
-    SingUpView, ProductDetailView, cart_summary, cart_add
+    SingUpView, ProductDetailView, AddToCartView, CartSummaryView, UpdateCartView, RemoveFromCartView
 from django.contrib.auth.views import LoginView, LogoutView
 from . import settings
 from django.conf.urls.static import static
@@ -31,10 +31,10 @@ urlpatterns = [
     path('products/edit/<pk>/', ProductUpdateView.as_view(), name='edit_product'),
     path('products/delete/<pk>/', ProductDeleteView.as_view(), name='delete_product'),
 
-    path('cart', cart_summary, name='cart_summary'),
-    path('cart/add/', cart_add, name='cart_add'),
-    #path('cart/remove/', cart_remove, name='cart_remove'),
-    #path('cart/update/', CartUpdateView.as_view(), name='cart_update'),
+    path('cart/add/', AddToCartView.as_view(), name='cart_add'),
+    path('cart/', CartSummaryView.as_view(), name='cart_summary'),
+    path('cart/update/', UpdateCartView.as_view(), name='cart_update'),
+    path('cart/remove/<int:product_id>/', RemoveFromCartView.as_view(), name='cart_remove'),
 
     path('userpage/', UserView.as_view(), name='userpage'),
     path('accounts/register/', SingUpView.as_view(), name='register'),

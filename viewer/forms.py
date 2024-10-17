@@ -8,3 +8,10 @@ class ProductForm(forms.ModelForm):
         fields = '__all__'
 
 
+class AddToCartForm(forms.Form):
+    product_id = forms.IntegerField()
+    quantity = forms.IntegerField(min_value=1, initial=1)
+
+class UpdateCartForm(forms.Form):
+    product_id = forms.IntegerField()
+    quantity = forms.IntegerField(min_value=0)
