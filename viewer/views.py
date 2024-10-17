@@ -41,18 +41,30 @@ class ProductDetailView(TemplateView):
 
 # Product Management for admin users
 class ProductCreateView(PermissionRequiredMixin, CreateView):
-    template_name = 'form.html'
+    template_name = 'product_form.html'
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('products')
     permission_required = ('viewer.add_product',)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['view_title'] = 'Add Product'
+        context['submit_button_text'] = 'Add Product'
+        return context
+
 class ProductUpdateView(PermissionRequiredMixin, UpdateView):
-    template_name = 'form.html'
+    template_name = 'product_form.html'
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('products')
     permission_required = ('viewer.change_product')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['view_title'] = 'Edit Product'
+        context['submit_button_text'] = 'Update Product'
+        return context
 
 class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'confirm_delete_product.html'
@@ -70,7 +82,7 @@ class SingUpView (CreateView):
 class UserView(TemplateView):
     template_name = 'user.html'
 
-# Order management views
+# Cart management views
 # View for adding items to the cart
 class AddToCartView(FormView):
     form_class = AddToCartForm
