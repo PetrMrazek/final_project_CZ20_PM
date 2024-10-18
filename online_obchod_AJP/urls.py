@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from viewer.views import HomePageView, ProductsView, ProductCreateView, ProductUpdateView, ProductDeleteView, UserView, \
     SingUpView, ProductDetailView, AddToCartView, CartSummaryView, UpdateCartView, RemoveFromCartView, PlaceOrderView, \
-    OrderSummaryView, CateringContactView
+    OrderSummaryView, CateringContactView, CateringSuccessView
 from django.contrib.auth.views import LoginView, LogoutView
 from . import settings
 from django.conf.urls.static import static
@@ -39,9 +39,10 @@ urlpatterns = [
     path('cart/remove/<int:product_id>/', RemoveFromCartView.as_view(), name='cart_remove'),
 
     path('order/place/', PlaceOrderView.as_view(), name='place_order'),
-    path('order/summary/<int:pk>/', OrderSummaryView.as_view(), name='order_summary'),
+    path('order/summary/<pk>/', OrderSummaryView.as_view(), name='order_summary'),
 
     path('catering', CateringContactView.as_view(), name='catering'),
+    path('catering/success/', CateringSuccessView.as_view(), name='catering_success'),
 
     path('userpage/', UserView.as_view(), name='userpage'),
     path('accounts/register/', SingUpView.as_view(), name='register'),
