@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, FormView, View, DetailView
 from django.contrib.auth.forms import UserCreationForm
-from viewer.forms import ProductForm, AddToCartForm, OrderForm
+from viewer.forms import ProductForm, AddToCartForm, OrderForm, CateringContactForm
 from viewer.models import Categorie, Product, Allergen, Order
 from django.urls import reverse_lazy
 
@@ -230,6 +230,26 @@ class OrderSummaryView(LoginRequiredMixin, DetailView):
         context['order_items'] = order_items
         return context
 
+class CateringContactView(FormView):
+    template_name = 'catering.html'
+    form_class = CateringContactForm
+   # success_url = reverse_lazy('catering_success')
 
+    # def form_valid(self, form):
+    #     # Send email with form data
+    #     subject = 'Catering Inquiry from {}'.format(form.cleaned_data['name'])
+    #     message = (
+    #         'Name: {name}\n'
+    #         'Email: {email}\n'
+    #         'Phone: {phone}\n'
+    #         'Event Date: {event_date}\n'
+    #         'Event Time: {event_time}\n'
+    #         'Number of Guests: {guests}\n'
+    #         'Estimated Budget: {budget}\n'
+    #         'Comments: {comments}'
+    #     ).format(**form.cleaned_data)
+    #     send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [settings.DEFAULT_FROM_EMAIL])
+    #
+    #     return super().form_valid(form)
 
 

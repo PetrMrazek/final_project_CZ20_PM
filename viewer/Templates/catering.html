@@ -1,0 +1,71 @@
+<!-- catering.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Header -->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Catering Services</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Let's make your event memorable!</p>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <br/><br/>
+            <h4>Catering Request</h4>
+            <form method="post" action="{% url 'catering' %}">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="event_date" class="form-label">Event Date</label>
+                    <input type="date" class="form-control" id="event_date" name="event_date" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="event_time" class="form-label">Event Time</label>
+                    <input type="time" class="form-control" id="event_time" name="event_time" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="guests" class="form-label">Number of Guests</label>
+                    <input type="number" class="form-control" id="guests" name="guests" min="1" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="budget" class="form-label">Estimated Budget</label>
+                    <input type="number" class="form-control" id="budget" name="budget" min="0">
+                </div>
+
+                <div class="mb-3">
+                    <label for="comments" class="form-label">Additional Comments / Information</label>
+                    <textarea class="form-control" id="comments" name="comments" rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <br/><br/>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
