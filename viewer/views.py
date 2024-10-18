@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, FormView, View
+from django.views.generic import TemplateView, CreateView, UpdateView, DeleteView, FormView, View, DetailView
 from django.contrib.auth.forms import UserCreationForm
 from viewer.forms import ProductForm, AddToCartForm, OrderForm
 from viewer.models import Categorie, Product, Allergen, Order
@@ -204,13 +204,30 @@ class PlaceOrderView(LoginRequiredMixin, FormView):
         return redirect('order_summary', pk=order.pk)
 
 # View for reviewing an order
-class OrderSummaryView(LoginRequiredMixin, TemplateView):
+class OrderSummaryView(LoginRequiredMixin, DetailView):
+    model = Order
     template_name = 'order_summary.html'
+    context_object_name = 'order'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        order = get_object_or_404(Order, pk=self.kwargs['pk'], user=self.request.user)
-        context['order'] = order
+        order = self.get_object()
+
+        # Get the products and quantities from the order
+        items = order.items
+        products = Product.objects.filter(id__in=items.keys())
+
+        # Create a list of products with their respective quantities
+        order_items = []
+        for product in products:
+            quantity = items.get(str(product.id), 0)
+            order_items.append({
+                'product': product,
+                'quantity': quantity,
+                'total_price': product.price * quantity
+            })
+
+        context['order_items'] = order_items
         return context
 
 

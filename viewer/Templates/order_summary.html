@@ -3,16 +3,15 @@
 <div class="container">
     <h2>Order Summary</h2>
     <p><strong>Order ID:</strong> {{ order.id }}</p>
-    <p><strong>Total Price:</strong> {{ order.total_price }} CZK</p>
-    <p><strong>Status:</strong> {{ order.status }}</p>
 
     <h3>Items</h3>
     <ul>
-        {% for product_id, quantity in order.items.items %}
-            {% with product=product_id|product_by_id %}
-            <li>{{ product.title }} - {{ quantity }} pcs at {{ product.price }} CZK each</li>
-            {% endwith %}
+        {% for item in order_items %}
+            <li>{{ item.product.title }} - {{ item.quantity }} pieces at {{ item.product.price }} CZK each, total: {{ item.total_price }} CZK</li>
         {% endfor %}
     </ul>
+
+    <p><strong>Total Price:</strong> {{ order.total_price }} CZK</p>
+    <p><strong>Status:</strong> {{ order.status }}</p>
 </div>
 {% endblock %}
