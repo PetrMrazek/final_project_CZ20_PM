@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'viewer'
 ]
 
-LOGIN_REDIRECT_URL = 'products'
+LOGIN_REDIRECT_URL = 'cart_summary'
 LOGOUT_REDIRECT_URL = 'main'
 
 MIDDLEWARE = [
