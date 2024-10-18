@@ -13,11 +13,11 @@ An application, that allows to add products to the store through the administrat
 - [x] Create basic templates views 
 
 ### Phase 2: Product Management
-- [X] Implement Add product 
-- [X] Implement Update/change product 
-- [X] Implement Delete product
-- [ ] Add product list view for users(customers)
-- [ ] Add search and pagination for product list
+- [X] Implement Add product functionality
+- [X] Implement Update/change product functionality
+- [X] Implement Delete product functionality
+- [X] Add bottoms visible for admin users only
+- [ ] Add search functionality 
 
 ### Phase 3: User Management
 
@@ -25,12 +25,21 @@ An application, that allows to add products to the store through the administrat
 - [X] Implement user registration
 - [X] Set permissions on Views 
 
-### Phase 4: Order Management
-- [ ] Create models:order line, order
-- [ ] Create Views for Cart: Add product to cart, Update,remove, view, place order
-- [ ] Create Template: cart.html
+### Phase 4: Cart Functionality
 
+- [X] Implement Add Product to cart
+- [X] Implement CartSummary 
+- [X] Implement Update Cart (quantity and price changes)
+- [X] Implement Remove item from cart
+- [X] Implement Checkout form for logged users
 
-### Phase 5: Additional Features
+### Phase 5: Order Management
+- [X] Create model
+- [X] Implement form for placing Order
+- [X] Implement Order Summary visualization
+- [X] Implement Contact form for catering
+- [X] Set up form validation and mail after submission
+
+### Phase 6: Additional Features
 - [ ] Add weather widget based on user city
 
