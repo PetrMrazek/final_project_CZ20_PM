@@ -1,6 +1,7 @@
 from django import forms
 from viewer.models import Product
 
+from django.core.exceptions import ValidationError
 
 class ProductForm(forms.ModelForm):
     class Meta:
@@ -26,6 +27,12 @@ class CateringContactForm(forms.Form):
     guests = forms.IntegerField(min_value=1)
     budget = forms.DecimalField(max_digits=10, decimal_places=2, required=False)
     comments = forms.CharField(widget=forms.Textarea, required=False)
+
+    def clean(self):
+        super(CateringContactForm, self).clean()
+        if self.cleaned_data.get('name') != self.cleaned_data.get('name').capitalize():
+            raise ValidationError("Name must start with capital letter")
+        return self.cleaned_data
 
 class PriceFilterForm(forms.Form):
     min_price = forms.IntegerField(required=False, label='Min Price', min_value=0)
