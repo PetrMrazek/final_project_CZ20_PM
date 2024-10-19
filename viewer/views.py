@@ -5,7 +5,7 @@ from django.views.generic import TemplateView, CreateView, UpdateView, DeleteVie
 from django.contrib.auth.forms import UserCreationForm
 
 from online_obchod_AJP import settings
-from viewer.forms import ProductForm, AddToCartForm, OrderForm, CateringContactForm
+from viewer.forms import ProductForm, AddToCartForm, OrderForm, CateringContactForm, PriceFilterForm
 from viewer.models import Categorie, Product, Allergen, Order
 from django.urls import reverse_lazy
 
@@ -24,17 +24,31 @@ class ProductsView(TemplateView):
         context = super().get_context_data(**kwargs)
         all_categories = Categorie.objects.all()
 
+        price_filter_form = PriceFilterForm(self.request.GET or None)
         search_query = self.request.GET.get('q','')
+
+        min_price = max_price = None
+        if price_filter_form.is_valid():
+            min_price = price_filter_form.cleaned_data.get('min_price')
+            max_price = price_filter_form.cleaned_data.get('max_price')
 
         category_products = {}
         for category in all_categories:
+            products = Product.objects.filter(category=category)
+
             if search_query:
-                category_products[category] = Product.objects.filter(category=category, title__icontains=search_query)
-            else:
-                category_products[category] = Product.objects.filter(category=category)
+                products = products.filter(title__icontains=search_query)
+
+            if min_price is not None:
+                products = products.filter(price__gte=min_price)
+            if max_price is not None:
+                products = products.filter(price__lte=max_price)
+
+            category_products[category] = products
 
         context['category_products'] = category_products
         context['search_query'] = search_query
+        context['price_filter_form'] = price_filter_form
         return context
 
 # Product Details

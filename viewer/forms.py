@@ -26,3 +26,7 @@ class CateringContactForm(forms.Form):
     guests = forms.IntegerField(min_value=1)
     budget = forms.DecimalField(max_digits=10, decimal_places=2, required=False)
     comments = forms.CharField(widget=forms.Textarea, required=False)
+
+class PriceFilterForm(forms.Form):
+    min_price = forms.IntegerField(required=False, label='Min Price', min_value=0)
+    max_price = forms.IntegerField(required=False, label='Max Price', min_value=0)
