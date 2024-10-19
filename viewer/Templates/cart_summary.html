@@ -52,8 +52,11 @@
             <a href="{% url 'products' %}" class="btn btn-secondary">Continue Shopping</a>
 
         {% else %}
-            <p>Your cart is empty.</p>
-            <a href="{% url 'products' %}" class="btn btn-primary">Shop Now</a>
+            <div class="text-center">
+                <p>Your cart is empty.</p><br/>
+                <a href="{% url 'products' %}" class="btn btn-secondary">Shop Now</a>
+            </div>
+
         {% endif %}
     </div>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
