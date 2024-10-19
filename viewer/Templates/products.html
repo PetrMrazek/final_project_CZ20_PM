@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Our Products</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Choose from the categories below</p>
+        </div>
+    </div>
+</header>
+
+<!-- Search and Price Filter Section -->
+<section class="py-3">
+    <div class="container px-4 px-lg-5">
+        <!-- Search Bar -->
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <form method="get" class="form-inline">
+                    <div class="mb-3">
+                        <input type="text" name="q" class="form-control w-100" placeholder="Search products..." value="{{ search_query }}">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Price Filter and Search Button -->
+        <div class="row">
+            <div class="col-md-3">
+                Min. Price {{ price_filter_form.min_price }}
+            </div>
+            <div class="col-md-3">
+                Max. Price {{ price_filter_form.max_price }}
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-secondary">Search</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        {% for category, products in category_products.items %}
+            <div class="row justify-content-center">
+                <h2 style="text-align: left;">{{ category.name }}</h2>
+                {% if user.is_staff %}
+                    <div class="text-right">
+                        <a class="btn btn-outline-dark mt-auto" href="{% url 'add_product' %}">Add Product</a>
+                    </div>
+                {% endif %}
+                <br>
+            </div>
+            <br/><br/>
+
+            <!-- Display products for this category -->
+            {% if products %}
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    {% for product in products %}
+                        <div class="col mb-5">
+                            <div class="card h-100">
+                                <!-- Product image-->
+                                {% if product.thumbnail %}
+                                    <img class="card-img-top" src="{{ product.thumbnail.url }}" alt="{{ product.title }}" style="width: auto; height: 220px;"/>
+                                {% endif %}
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                        <h5 class="fw-bolder"><a href="{% url 'product_detail' product.pk %}" class="link-dark">{{ product.title }}</a></h5>
+                                        <!-- Product price-->
+                                        {{ product.price }} czk
+                                    </div>
+                                </div>
+                                <!-- Product actions-->
+                                {% if user.is_staff %}
+                                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" href="{% url 'edit_product' product.pk %}">Edit</a>
+                                        </div>
+                                        <div class="text-center">
+                                            <a class="btn btn-outline-dark mt-auto" href="{% url 'delete_product' product.pk %}">Delete</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>There aren't available products under this category.</p>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ product_detail.thumbnail.url }}" class="img-fluid rounded-start" alt="Product Image">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product_detail.title }}</h5>
+                        <p class="card-text">{{ product_detail.description }}</p>
+                        <p class="card-text"><strong>Price:</strong> {{ product_detail.price }} CZK</p>
+                        {% if product_detail.allergens.exists %}
+                            <p class="card-text">
+                                <strong>Allergens:</strong>
+                                {% for allergen in product_detail.allergens.all %}
+                                    {{ allergen.name }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+
+                        <form method="post" action="{% url 'cart_add' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" value="{{ product_detail.id }}">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" value="1" min="1"><br/>
+                            <div class="text-center">
+                            <button type="submit" class="btn btn-secondary">Add to Cart</button>
+                            </div>
+                        </form>
+                        <br/>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

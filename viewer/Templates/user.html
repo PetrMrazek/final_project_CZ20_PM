@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">User Account</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Check your account information</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+        	<div class="row">
+        		<center>
+        			<div class="col-8">
+
+                        <br/><br/>
+
+                        <h4>General information</h4>
+<table>
+    <tr>
+        <td>username</td><td>{{user.username}}</td></tr><tr>
+        <td>first_name</td><td>{{user.first_name}}</td></tr><tr>
+        <td>last_name</td><td>{{user.last_name}}</td></tr><tr>
+        <td>email</td><td>{{user.email}}</td></tr><tr>
+        <td>password</td><td>{{user.password}}</td></tr><tr>
+        <td>is_staff</td><td>{{user.is_staff}}</td></tr><tr>
+        <td>is_active</td><td>{{user.is_active}}</td></tr><tr>
+        <td>is_superuser</td><td>{{user.is_superuser}}</td></tr><tr>
+        <td>last_login</td><td>{{user.last_login}}</td></tr><tr>
+        <td>date_joined</td><td>{{user.date_joined}}</td></tr><tr>
+    </tr>
+</table>
+
+<h4>User rights</h4>
+{% for perm in user.user_permissions.all %}
+{{perm.name}} -- {{perm.codename}}<br>
+{% endfor %}
+
+<h4>User assigned groups</h4>
+
+{% for group in user.groups.all %}
+<h3>{{group}}</h3> {% for perm in group.permissions.all %} {{perm.codename}}{%endfor%}<br>
+{% endfor %}
+
+
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+<br/><br/>
+        			</div>
+        		</center>
+        	</div>
+        </div>
+
+{% endblock %}

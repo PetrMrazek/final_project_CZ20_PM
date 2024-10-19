@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+    <div class="text-center"
+      <p>
+        Are you sure you want to delete product "{{ product.title }}" from database?
+      </p>
+      <input type="submit" value="Submit" class="btn btn-danger">
+    </div>
+  </form>
+
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+{% endblock %}
