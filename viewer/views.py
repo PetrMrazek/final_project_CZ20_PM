@@ -24,11 +24,17 @@ class ProductsView(TemplateView):
         context = super().get_context_data(**kwargs)
         all_categories = Categorie.objects.all()
 
+        search_query = self.request.GET.get('q','')
+
         category_products = {}
         for category in all_categories:
-            category_products[category] = Product.objects.filter(category=category)
+            if search_query:
+                category_products[category] = Product.objects.filter(category=category, title__icontains=search_query)
+            else:
+                category_products[category] = Product.objects.filter(category=category)
 
         context['category_products'] = category_products
+        context['search_query'] = search_query
         return context
 
 # Product Details

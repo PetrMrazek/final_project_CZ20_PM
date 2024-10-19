@@ -10,6 +10,15 @@
                 </div>
             </div>
         </header>
+
+        <!-- Search Form -->
+        <div class="container px-4 px-lg-5 mt-5">
+            <form method="get" action="" class="d-flex mb-4">
+                <input type="text" name="q" value="{{ search_query }}" class="form-control me-2" placeholder="Search for products...">
+                <button type="submit" class="btn btn-outline-dark">Search</button>
+            </form>
+        </div>
+
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -37,12 +46,9 @@
                                         {% if product.thumbnail %}
                                         <img class="card-img-top" src="{{ product.thumbnail.url }}" alt="{{ product.tittle }}" style="width: auto; height: 220px;"/>
                                         {% endif %}
-                                        <!-- Product details-->
                                         <div class="card-body p-4">
                                             <div class="text-center">
-                                                <!-- Product name-->
                                                 <h5 class="fw-bolder"><a href="{% url 'product_detail' product.pk %}" class="link-dark">{{ product.title }}</a></h5>
-                                                <!-- Product price-->
                                                 {{ product.price }} czk
                                             </div>
                                         </div>
