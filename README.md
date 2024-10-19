@@ -18,6 +18,7 @@ An application, that allows to add products to the store through the administrat
 - [X] Implement Delete product functionality
 - [X] Add bottoms visible for admin users only
 - [X] Add search functionality 
+- [X] Add filter by price
 
 ### Phase 3: User Management
 
@@ -41,7 +42,9 @@ An application, that allows to add products to the store through the administrat
 - [X] Set up form validation and mail after submission
 
 ### Phase 6: Tests
-- [ ] Test Functionalities
+- [ ] Test na database (2x)
+- [ ] Test na Views (2x)
+- [ ] Test-selenium (na functionalities2x)
 - [ ] Merge into main
 
 ### Phase 7: Additional Features
