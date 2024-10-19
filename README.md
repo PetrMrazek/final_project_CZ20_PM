@@ -17,7 +17,7 @@ An application, that allows to add products to the store through the administrat
 - [X] Implement Update/change product functionality
 - [X] Implement Delete product functionality
 - [X] Add bottoms visible for admin users only
-- [ ] Add search functionality 
+- [X] Add search functionality 
 
 ### Phase 3: User Management
 
@@ -40,6 +40,10 @@ An application, that allows to add products to the store through the administrat
 - [X] Implement Contact form for catering
 - [X] Set up form validation and mail after submission
 
-### Phase 6: Additional Features
+### Phase 6: Tests
+- [ ] Test Functionalities
+- [ ] Merge into main
+
+### Phase 7: Additional Features
 - [ ] Add weather widget based on user city
 
