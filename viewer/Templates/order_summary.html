@@ -1,19 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<!-- Header -->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Order Summary</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Thank you {{ user.first_name }}! Below your order details</p>
+        </div>
+    </div>
+</header>
+
+<br/><br/>
 <div class="container">
-    <h2>Order Summary</h2>
-    <p><strong>Order ID:</strong> {{ order.id }}</p>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h4 class="text-center">Order ID: {{ order.id }}</h4>
+            <br/>
 
-    <h3>Items</h3>
-    <ul>
-        {% for item in order_items %}
-            <li>{{ item.product.title }} - {{ item.quantity }} pieces at {{ item.product.price }} CZK each, total: {{ item.total_price }} CZK</li>
-        {% endfor %}
-    </ul>
+            <h5>Items</h5>
 
-    <p><strong>Total Price:</strong> {{ order.total_price }} CZK</p>
-    <p><strong>Status:</strong> {{ order.status }}</p>
+            <ul>
+                {% for item in order_items %}
+                    <li>{{ item.product.title }} - {{ item.quantity }} pieces at {{ item.product.price }} CZK each, total: {{ item.total_price }} CZK</li>
+                {% endfor %}
+            </ul>
+            <br/><br/>
+
+            <h5 class="text-center"><strong>Total Price:</strong> {{ order.total_price }} CZK</h5>
+            <h5 class="text-center"><strong>Status:</strong> {{ order.status }}</h5>
+        </div>
+
+    </div>
 </div>
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>\
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 {% endblock %}
