@@ -256,7 +256,7 @@ class OrderSummaryView(LoginRequiredMixin, DetailView):
         context['order_items'] = order_items
         return context
 
-# Catering contact View with validation
+# Catering views
 class CateringContactView(FormView):
     template_name = 'catering.html'
     form_class = CateringContactForm
