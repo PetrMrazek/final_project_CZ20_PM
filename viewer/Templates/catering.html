@@ -21,48 +21,59 @@
             <form method="post" action="{% url 'catering' %}">
                 {% csrf_token %}
 
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            <li><strong>{{ field }}</strong>: {{ errors|striptags }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+
+                <!-- Form fields -->
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ form.name.value }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ form.email.value }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone Number</label>
-                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                    <input type="tel" class="form-control" id="phone" name="phone" value="{{ form.phone.value }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="event_date" class="form-label">Event Date</label>
-                    <input type="date" class="form-control" id="event_date" name="event_date" required>
+                    <input type="date" class="form-control" id="event_date" name="event_date" value="{{ form.event_date.value }}">
                 </div>
 
                 <div class="mb-3">
                     <label for="event_time" class="form-label">Event Time</label>
-                    <input type="time" class="form-control" id="event_time" name="event_time" required>
+                    <input type="time" class="form-control" id="event_time" name="event_time" value="{{ form.event_time.value }}">
                 </div>
 
                 <div class="mb-3">
                     <label for="guests" class="form-label">Number of Guests</label>
-                    <input type="number" class="form-control" id="guests" name="guests" min="1" required>
+                    <input type="number" class="form-control" id="guests" name="guests" min="1" value="{{ form.guests.value }}">
                 </div>
 
                 <div class="mb-3">
                     <label for="budget" class="form-label">Estimated Budget</label>
-                    <input type="number" class="form-control" id="budget" name="budget" min="0">
+                    <input type="number" class="form-control" id="budget" name="budget" min="0" value="{{ form.budget.value }}">
                 </div>
 
                 <div class="mb-3">
                     <label for="comments" class="form-label">Additional Comments / Information</label>
-                    <textarea class="form-control" id="comments" name="comments" rows="4"></textarea>
+                    <textarea class="form-control" id="comments" name="comments" rows="4">{{ form.comments.value }}</textarea>
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-secondary">Submit</button>
                 </div>
 
             </form>

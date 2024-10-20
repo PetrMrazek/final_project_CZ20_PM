@@ -253,13 +253,13 @@ class OrderSummaryView(LoginRequiredMixin, DetailView):
         context['order_items'] = order_items
         return context
 
+# Catering contact form with validation
 class CateringContactView(FormView):
     template_name = 'catering.html'
     form_class = CateringContactForm
     success_url = reverse_lazy('catering_success')
 
     def form_valid(self, form):
-        # Send email with form data
         subject = 'Catering Inquiry from {}'.format(form.cleaned_data['name'])
         message = (
             'Name: {name}\n'
@@ -275,6 +275,9 @@ class CateringContactView(FormView):
         send_mail(subject, message, settings.EMAIL_BACKEND, [settings.EMAIL_BACKEND])
 
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
 
 class CateringSuccessView(TemplateView):
     template_name = 'catering_success.html'
