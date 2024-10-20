@@ -14,28 +14,20 @@
 <!-- Search and Price Filter Section -->
 <section class="py-3">
     <div class="container px-4 px-lg-5">
-        <!-- Search Bar -->
-        <div class="row mb-3">
-            <div class="col-md-12">
-                <form method="get" class="form-inline">
-                    <div class="mb-3">
-                        <input type="text" name="q" class="form-control w-100" placeholder="Search products..." value="{{ search_query }}">
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- Price Filter and Search Button -->
-        <div class="row">
-            <div class="col-md-3">
-                Min. Price {{ price_filter_form.min_price }}
-            </div>
-            <div class="col-md-3">
-                Max. Price {{ price_filter_form.max_price }}
+        <form method="get" class="row g-3">
+            <div class="col-md-6">
+                <input type="text" name="q" class="form-control" placeholder="Search products..." value="{{ search_query }}">
             </div>
             <div class="col-md-2">
+                Min. Price: {{ price_filter_form.min_price }}
+            </div>
+            <div class="col-md-2">
+                Max.price: {{ price_filter_form.max_price }}
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
                 <button type="submit" class="btn btn-secondary">Search</button>
             </div>
-        </div>
+        </form>
     </div>
 </section>
 
