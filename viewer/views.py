@@ -205,12 +205,16 @@ class PlaceOrderView(LoginRequiredMixin, FormView):
     form_class = OrderForm
 
     def form_valid(self, form):
-        # Get user cart
         cart = self.request.session.get('cart', {})
         products = Product.objects.filter(id__in=cart.keys())
 
         # Calculate total price
         total_price = sum(product.price * cart[str(product.id)] for product in products)
+
+        # Handle shipping cost based on user's choice
+        shipping_option = form.cleaned_data['shipping_option']
+        if shipping_option == 'standard':
+            total_price += 79
 
         # Create the order
         order = Order.objects.create(
@@ -220,7 +224,6 @@ class PlaceOrderView(LoginRequiredMixin, FormView):
             status='Pending',
         )
 
-        # Clear the cart
         self.request.session['cart'] = {}
         self.request.session.modified = True
 
@@ -253,7 +256,7 @@ class OrderSummaryView(LoginRequiredMixin, DetailView):
         context['order_items'] = order_items
         return context
 
-# Catering contact form with validation
+# Catering contact View with validation
 class CateringContactView(FormView):
     template_name = 'catering.html'
     form_class = CateringContactForm

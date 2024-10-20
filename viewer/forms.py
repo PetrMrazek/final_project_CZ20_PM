@@ -19,6 +19,12 @@ class OrderForm(forms.Form):
     address = forms.CharField(max_length=255)
     phone_number = forms.CharField(max_length=15)
 
+    SHIPPING_CHOICES = [
+        ('pickup', 'Pick up (free)'),
+        ('standard', 'Standard shipping around Prague (79 CZK)'),
+    ]
+    shipping_option = forms.ChoiceField(choices=SHIPPING_CHOICES, widget=forms.RadioSelect)
+
 class CateringContactForm(forms.Form):
     name = forms.CharField(max_length=255)
     email = forms.EmailField()
